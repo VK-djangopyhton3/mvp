@@ -1,0 +1,7 @@
+Django
+psycopg2-binary
+python-decouple
+djangorestframework
+email-validate #https://pypi.org/project/email-validate/
+libretranslatepy #https://github.com/argosopentech/LibreTranslate-py
+drf-yasg[validation]

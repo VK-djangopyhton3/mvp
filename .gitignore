@@ -1,0 +1,26 @@
+#ignore specific files
+*~
+*.pyc
+*.bak
+*.swo
+*.swp
+.project
+.pydevproject
+.idea/*
+.settings/*
+*.vscode
+*.log
+/venv/
+logs/*
+.DS_Store
+/config/cov.coverage
+/config/.env
+/config/cov.syspath.txt
+/config/coverage.xml
+/config/.coverage
+/config/static/*
+/media/
+media/*
+settings.ini
+.env
+.venv
