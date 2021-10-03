@@ -34,13 +34,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy in EC2
-        uses: shimataro/ssh-key-action@v2.1.0
-        with:
-          key: ${ { secrets.SERVER_SSH_KEY } }
-          known_hosts: /home/ubuntu/.ssh/known_hosts
-      
-      - name: Execute Deploy Script
-        run: ssh ${ { secrets.REMOTE_USER } }@${ { secrets.REMOTE_HOST } } /bin/sh ./deploy.sh
+        env:
+          PRIVATE_KEY: ${{ secrets.PRIVATE_SSH_KEY  }}
+          HOSTNAME : ${{ secrets.HOSTNAME  }}
+          USER_NAME : ${{ secrets.USER_NAME  }}
+
+       run: |
+          ssh ${USER_NAME}@${HOSTNAME} '
+            # Now we have got the access of EC2 and we will start the deploy .
+            cd /var/www/mvp &&
+            git pull origin master &&
+
 
 
       # - name: Configure AWS credentials
