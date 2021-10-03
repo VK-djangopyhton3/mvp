@@ -32,20 +32,19 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2 
-      - name: Deploy in EC2
-        env:
-          PRIVATE_KEY: ${{ secrets.PRIVATE_SSH_KEY  }}
-          HOSTNAME : ${{ secrets.REMOTE_HOST  }}
-          USER_NAME : ${{ secrets.REMOTE_USER  }}
+      - name: Checkout to repo
+        uses: actions/checkout@v2
 
-        run: |
-          ssh ${USER_NAME}@${HOSTNAME}
-          
-            #Now we have got the access of EC2 and we will start the deploy .
-            cd /var/www/mvp &&
-            git checkout master &&
-            git pull origin master &&
+      - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.REMOTE_USER }}
+        key: ${{ secrets.PRIVATE_SSH_KEY }}
+        port: 22
+        script: |
+          cd /var/www/mvp &&
+          /bin/sh ./deploy.sh
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
