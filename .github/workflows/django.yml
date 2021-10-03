@@ -42,9 +42,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
           instance-ids: ${{ secrets.INSTANCE_ID }}
-      
-          working-directory: /var/www/mvp
-          command: /bin/sh ./deploy.sh
 
       - name: Create CodeDeploy Deployment
         id: deploy
@@ -54,6 +51,10 @@ jobs:
             --deployment-group-name DevOpsStaging \
             --deployment-config-name CodeDeployDefault.OneAtATime \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
+
+        working-directory: /var/www/mvp
+        command: /bin/sh ./deploy.sh
+
 
       # Catch SSM outputs
       - name: Get the outputs
