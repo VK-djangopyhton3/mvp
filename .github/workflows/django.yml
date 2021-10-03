@@ -43,7 +43,7 @@ jobs:
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
           script: |
-            /bin/sh ./deploy.sh
+            sh ./deploy.sh
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
