@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
-          script: |
+          run:
             cd /var/www/mvp &&
             git pull origin master &&
             source /var/www/mvp/.venv/bin/activate &&
