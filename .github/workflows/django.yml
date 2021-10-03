@@ -42,15 +42,8 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.PRIVATE_SSH_KEY }}
           port: 22
-          run:
-            cd /var/www/mvp &&
-            git pull origin master &&
-            source /var/www/mvp/.venv/bin/activate &&
-            pip3 install -r requirements.txt &&
-            python3 manage.py makemigrations &&
-            python3 manage.py migrate &&
-            python3 manage.py collectstatic &&
-            sudo systemctl restart apache2 
+          script: |
+            ./deploy.sh
 
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
