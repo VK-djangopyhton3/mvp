@@ -32,36 +32,37 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout to repo
       - uses: actions/checkout@v2
 
-      - name: AWS SSM Send-Command
-        uses: peterkimzz/aws-ssm-send-command@master
-        id: ssm
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-region: ${{ secrets.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
           instance-ids: ${{ secrets.INSTANCE_ID }}
-
+      
           working-directory: /var/www/mvp
           command: /bin/sh ./deploy.sh
+
+      - name: Create CodeDeploy Deployment
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name DemoDeploy \
+            --deployment-group-name DevOpsStaging \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
 
       # Catch SSM outputs
       - name: Get the outputs
         run: echo "The Command id is ${{ steps.ssm.outputs.command-id }}"
 
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
+      # - name: AWS SSM Send-Command
+      #   uses: peterkimzz/aws-ssm-send-command@master
+      #   id: ssm
       #   with:
+      #     aws-region: ${{ secrets.AWS_REGION }}
       #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.AWS_REGION }}
-
-      # - name: Create CodeDeploy Deployment
-      #   id: deploy
-      #   run: |
-      #     aws deploy create-deployment \
-      #       --application-name DemoDeploy \
-      #       --deployment-group-name DevOpsStaging \
-      #       --deployment-config-name CodeDeployDefault.OneAtATime \
-      #       --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
