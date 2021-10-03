@@ -34,14 +34,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Deploy in EC2
-        uses: appleboy/ssh-action@master
+        uses: shimataro/ssh-key-action@v2.1.0
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          script: /bin/sh ./deploy.sh
-
+          key: ${ { secrets.SERVER_SSH_KEY } }
+          known_hosts: /home/ubuntu/.ssh/known_hosts
+      
+      - name: Execute Deploy Script
+        run: ssh ${ { secrets.REMOTE_USER } }@${ { secrets.REMOTE_HOST } } /bin/sh ./deploy.sh
 
 
       # - name: Configure AWS credentials
