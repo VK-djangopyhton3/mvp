@@ -42,8 +42,8 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
 
-        working-directory: /var/www/mvp
-        command: /bin/sh ./deploy.sh
+      working-directory: /var/www/mvp
+      command: /bin/sh ./deploy.sh
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
