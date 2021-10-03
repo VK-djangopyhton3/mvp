@@ -41,9 +41,8 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: /var/www/mvp 
-      working-directory: /var/www/mvp
-      command: /bin/sh ./deploy.sh
+          TARGET: /var/www/mvp
+          COMMAND: /bin/sh ./deploy.sh
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
       #   with:
