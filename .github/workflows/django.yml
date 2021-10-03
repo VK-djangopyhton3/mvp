@@ -46,6 +46,7 @@ jobs:
         
       - name: Code deploying
         run: |
+          cd /var/www/mvp
           /bin/bash ./deploy.sh
 
       # - name: Configure AWS credentials
