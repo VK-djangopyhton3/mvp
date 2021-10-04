@@ -57,7 +57,8 @@ jobs:
           --deployment-group-name "$DEPLOYMENT_GROUP" \
           --description="$GITHUB_SHA" \
           --application-name "$DEPLOY_APP_NAME" \
-          --github-location repository="$GITHUB_REPOSITORY",commitId="$GITHUB_SHA"
+          --github-location repository="$GITHUB_REPOSITORY",commitId="$GITHUB_SHA" \
+          --update-outdated-instances-only
 
 
       # - name: executing remote ssh commands using password
