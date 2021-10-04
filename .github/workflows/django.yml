@@ -54,6 +54,7 @@ jobs:
           DEPLOYMENT_GROUP: ${{ secrets.AWS_CODEDEPLOY_DEPLOYMENT_GROUP }}
           DEPLOY_APP_NAME: ${{ secrets.AWS_CODEDEPLOY_APPLICATION_NAME }}
           AWS_EC2_METADATA_DISABLED: true
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
         run: |
           aws deploy create-deployment \
           --deployment-group-name "$DEPLOYMENT_GROUP" \
