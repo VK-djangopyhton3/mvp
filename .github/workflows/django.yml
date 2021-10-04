@@ -53,6 +53,7 @@ jobs:
         env:
           DEPLOYMENT_GROUP: ${{ secrets.AWS_CODEDEPLOY_DEPLOYMENT_GROUP }}
           DEPLOY_APP_NAME: ${{ secrets.AWS_CODEDEPLOY_APPLICATION_NAME }}
+          AWS_EC2_METADATA_DISABLED: true
         run: |
           aws deploy create-deployment \
           --deployment-group-name "$DEPLOYMENT_GROUP" \
