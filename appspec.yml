@@ -3,21 +3,22 @@ os: linux
 files:
   - source: /
     destination: /var/www/mvp
+file_exists_behavior: OVERWRITE
 permissions:
   - object: /var/www/mvp
     pattern: "**"
     owner: ubuntu
     group: ubuntu
 hooks:
-  BeforeInstall:
-    - location: scripts/start_application.sh
-      timeout: 6000
-      runas: ubuntu
+  AfterInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
   ApplicationStart:
-    - location: scripts/start_application.sh
-      timeout: 6000
-      runas: ubuntu
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
   ApplicationStop:
-    - location: scripts/stop_application.sh
-      timeout: 6000
-      runas: ubuntu
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root

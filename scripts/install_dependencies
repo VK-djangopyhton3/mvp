@@ -1,0 +1,6 @@
+#!/bin/bash
+sudo apt update
+# Destination folder
+cd /var/www/mvp
+# AWS CLI needed to get parameters
+sudo apt install -y awscli
