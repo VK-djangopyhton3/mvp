@@ -47,18 +47,16 @@ jobs:
           instance-ids: ${{ secrets.INSTANCE_ID }}
       
       # AWS CLI Docs: https://docs.aws.amazon.com/codedeploy/latest/userguide/deployments-create-cli.html
-      - name: Deploy to CodeDeploy
+      - name: Create CodeDeploy Deployment
         # success() checks if the previous job was canceled or not
+        id: deploy
         if: ${{ success() }}
-        env:
-          DEPLOYMENT_GROUP: ${{ secrets.AWS_CODEDEPLOY_DEPLOYMENT_GROUP }}
-          DEPLOY_APP_NAME: ${{ secrets.AWS_CODEDEPLOY_APPLICATION_NAME }}
         run: |
           aws deploy create-deployment \
-          --deployment-group-name "$DEPLOYMENT_GROUP" \
-          --description="$GITHUB_SHA" \
-          --application-name "$DEPLOY_APP_NAME" \
-          --github-location repository="$GITHUB_REPOSITORY",commitId="$GITHUB_SHA"
+            --application-name DemoDeploy \
+            --deployment-group-name DevOpsStaging \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
 
 
       # - name: executing remote ssh commands using password
