@@ -12,20 +12,14 @@ class UserCheckEmailOrTranslatorPermissions():
         if request.user.groups.filter(permissions__codename="can_check_email").exists():
 
             """
-            Allow any access.
-            This isn't strictly required, since you could use an empty
-            permission_classes list, but it's useful because it makes the intention
-            more explicit.
+            This is the check email is valid or not, also check user able to check email
             """
             data.update({'email_is_valid': is_email_valid(data.get('email'))})
 
         if request.user.groups.filter(permissions__codename="can_translate").exists():
 
             """
-            Allow any access.
-            This isn't strictly required, since you could use an empty
-            permission_classes list, but it's useful because it makes the intention
-            more explicit.
+            This is the translate given words, also check user able to translate
             """
             data.update({'text_translated': lt_translate(data.get('text'), 'en', 'ja')}) # Server unavailable
             # data.update({'text_translated': data.get('text')})

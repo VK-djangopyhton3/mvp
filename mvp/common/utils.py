@@ -15,6 +15,7 @@ def return_response(data, success, message, status):
 
 
 def lt_translate(text, source_language=None, target_language=None):
+    """This method is use for translation"""
     try:
 
         from libretranslatepy import LibreTranslateAPI
@@ -32,6 +33,7 @@ def lt_translate(text, source_language=None, target_language=None):
 
 
 def is_email_valid(email):
+    """This method is use for check email exists or valid"""
     from email_validate import validate, validate_or_fail
     is_valid = validate(email_address=email, check_format=True, check_blacklist=True, check_dns=True, dns_timeout=10, check_smtp= False, smtp_debug=False)
     return is_valid
