@@ -4,7 +4,7 @@ _Backend_ python code
 ## Clone the project
 ###Clone the project from Github:
 
-    Project Root Directory: `/var/www`
+    Project Root Directory: `/var/www` Or any
     
     git clone remote url
 
@@ -71,3 +71,41 @@ Clone the project from Github:
 ## Create super user
     
     python3 manage.py createsuperuser
+
+
+# Manual Project Setup with AWS
+    
+### Install web server
+    sudo apt-get install apache2 apache2-dev
+    Follow above process then.
+
+### Install python dependencies
+    sudo apt-get install python3.9-dev #or another python version
+
+## Setup conf file for apache
+
+     <VirtualHost *:80>
+        ServerName ip or domain
+    
+        Alias /static /var/www/project_dir/staticfiles
+    
+        <Directory /var/www/project_dir/staticfiles>
+            Require all granted
+        </Directory>
+        <Directory /var/www/project_dir/>
+            <Files wsgi.py>
+                Require all granted
+            </Files>
+        </Directory>
+    
+        WSGIPassAuthorization On
+        WSGIDaemonProcess project_name python-home=/var/www/project_dir/.venv python-path=/var/www/mvp
+        WSGIProcessGroup project_name
+        WSGIScriptAlias / /var/www/project_dir//wsgi.py
+        LoadModule wsgi_module "/var/www/project_dir/.venv/lib/python3.9/site-packages/mod_wsgi/server/mod_wsgi-py39.cpython-39-x86_64-linux-gnu.so"
+    
+    </VirtualHost>
+
+    Then deactivate current activated conf and activate our conf then run
+
+    sudo service apache2 restart

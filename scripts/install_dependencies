@@ -4,3 +4,5 @@ sudo apt update
 cd /var/www/mvp
 # AWS CLI needed to get parameters
 sudo apt install -y awscli
+source /var/www/mvp/.venv/bin/activate
+pip3 install -r requirements.txt
