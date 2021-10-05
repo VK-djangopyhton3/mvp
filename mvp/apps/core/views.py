@@ -12,9 +12,11 @@ class EmailCheckAndTranslatorAPIView(generics.CreateAPIView):
     serializer_class = RawDataSerializer
 
     def post(self, request, *args, **kwargs):
+        """Post basic data and get the response"""
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             data = serializer.data
+            """Check user have permission and return response accordingly """
             is_user = UserCheckEmailOrTranslatorPermissions.has_permission(request, data)
 
             return return_response(data, True, 'Successful!', status.HTTP_200_OK)
