@@ -12,7 +12,7 @@ class EmailCheckAndTranslatorAPIView(generics.CreateAPIView):
     serializer_class = RawDataSerializer
 
     def post(self, request, *args, **kwargs):
-        """Post basic data and get the response"""
+        """Post basic data and get the response according permission"""
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             data = serializer.data
