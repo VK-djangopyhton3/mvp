@@ -1,5 +1,6 @@
-# MVP
+# MVP for Translator
 _Backend_ python code
+The objective of this assignment is to develop an Translator system for Organization. A typical workflow for Organization .
 
 ## Clone the project
 ###Clone the project from Github:
